@@ -10,6 +10,12 @@ Stitch skills are installed locally in this project under:
 
 When a task involves Stitch, design generation, prompt enhancement, React component generation, shadcn/ui, Remotion, or iterative design workflows, read and apply the relevant local `SKILL.md` from `.skills/stitch-skills/skills/<skill-name>/SKILL.md` before making changes. Prefer these project-local Stitch skills over ad hoc instructions for those workflows.
 
+The Composio Awesome Codex Skills pack is installed locally under:
+
+- `.skills/awesome-codex-skills/`
+
+When a task matches one of the installed Composio skills or agents, inspect the relevant `.skills/awesome-codex-skills/<skill-name>/SKILL.md` before acting and apply it when useful. Prefer the most specific matching skill for GitHub/CI, deployment, webapp testing, brand guidelines, design, content research, planning, MCP, support triage, Sentry/Datadog/Linear/Notion, document/media workflows, and other workflows covered by that pack.
+
 This project is a premium tinnitus support product called **Onda Tesla**, not a generic meditation or wellness app.
 
 ## Required UI Process
