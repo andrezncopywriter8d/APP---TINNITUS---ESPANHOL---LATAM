@@ -4,6 +4,12 @@ Before editing UI, layout, components, CSS, copy, navigation, or visual design, 
 
 - `.skills/frontend-skill.md`
 
+Stitch skills are installed locally in this project under:
+
+- `.skills/stitch-skills/skills/`
+
+When a task involves Stitch, design generation, prompt enhancement, React component generation, shadcn/ui, Remotion, or iterative design workflows, read and apply the relevant local `SKILL.md` from `.skills/stitch-skills/skills/<skill-name>/SKILL.md` before making changes. Prefer these project-local Stitch skills over ad hoc instructions for those workflows.
+
 This project is a premium tinnitus support product called **Onda Tesla**, not a generic meditation or wellness app.
 
 ## Required UI Process
