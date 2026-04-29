@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AudioWave Stitch Mobile Preview</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #080b10;
+        --panel: #111821;
+        --panel-2: #162333;
+        --text: #f2f7fb;
+        --muted: #9fb1c3;
+        --accent: #13daec;
+        --line: rgba(255, 255, 255, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(circle at top left, rgba(19, 218, 236, 0.14), transparent 30rem),
+          linear-gradient(135deg, #080b10 0%, #10151d 45%, #071018 100%);
+        color: var(--text);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 1rem 1.25rem;
+        border-bottom: 1px solid var(--line);
+        background: rgba(8, 11, 16, 0.86);
+        backdrop-filter: blur(18px);
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 1rem;
+        font-weight: 750;
+        letter-spacing: 0;
+      }
+
+      .meta {
+        margin-top: 0.2rem;
+        color: var(--muted);
+        font-size: 0.8rem;
+      }
+
+      .controls {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      button {
+        min-width: 2.4rem;
+        height: 2.25rem;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        color: var(--text);
+        font: inherit;
+        cursor: pointer;
+      }
+
+      button:hover {
+        border-color: rgba(19, 218, 236, 0.65);
+      }
+
+      #scaleLabel {
+        width: 3.2rem;
+        color: var(--muted);
+        font-size: 0.85rem;
+        text-align: center;
+      }
+
+      main {
+        padding: 1.25rem;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+        gap: 1.25rem;
+        align-items: start;
+      }
+
+      .screen {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(17, 24, 33, 0.82);
+        overflow: hidden;
+      }
+
+      .screen-header {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.75rem 0.85rem;
+        border-bottom: 1px solid var(--line);
+        background: rgba(22, 35, 51, 0.72);
+      }
+
+      .screen-title {
+        font-size: 0.9rem;
+        font-weight: 700;
+      }
+
+      .screen-size {
+        color: var(--muted);
+        font-size: 0.78rem;
+        white-space: nowrap;
+      }
+
+      .phone-wrap {
+        display: flex;
+        justify-content: center;
+        padding: 1rem;
+        overflow: auto;
+      }
+
+      .phone {
+        width: calc(384px * var(--scale, 1));
+        max-width: none;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 24px;
+        background: #02060b;
+        box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+        overflow: hidden;
+      }
+
+      .phone img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+
+      .open-link {
+        color: var(--accent);
+        font-size: 0.78rem;
+        text-decoration: none;
+      }
+
+      @media (max-width: 760px) {
+        header {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        main {
+          padding: 0.75rem;
+        }
+
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div>
+        <h1>AudioWave Stitch Mobile Preview</h1>
+        <div class="meta">Projeto Stitch: 14843272429057423142 · 5 telas mobile · screenshots 768 x 1376</div>
+      </div>
+      <div class="controls" aria-label="Controles de zoom">
+        <button type="button" id="zoomOut" title="Diminuir zoom">-</button>
+        <span id="scaleLabel">50%</span>
+        <button type="button" id="zoomIn" title="Aumentar zoom">+</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="grid" id="screens"></section>
+    </main>
+
+    <script>
+      const screens = [
+        {
+          title: "AudioWave Home Dashboard",
+          size: "768 x 1376",
+          url: "https://lh3.googleusercontent.com/aida/ADBb0ui8xW2ziqyylXMwwUveQpebkKksUvyy_8WWbKPcTx5bL8o-dkFP9kqA6zWArQTMLj6msCZzF2FULPo3t8sQ6LaHPfXv-I5k6e546yNwedzS0QEtmu8bkDL2A5TjDKqS32YI0X8BnzEN9aupOG_Utv23SJDFggv34CNdAsZQFfndK7PcQFsmg8jKRq6ZKw7mR7BdXLx2vnslmigD6nscVQLh_XW75EnfXyDI-lOZR_3b0uxEuD86hotve-g"
+        },
+        {
+          title: "AudioWave Library Explore",
+          size: "768 x 1376",
+          url: "https://lh3.googleusercontent.com/aida/ADBb0uja-sOrhQscC3PmOUy041fphv0KcGEFTbhs4byMVfo4d5-9O_DoY-FLaCdDLh1oQhXLKe8owgzHKMy1C_3rCJglEejaTlK4RrYOPJVx1Q0DtqqCaLSwUttu6Ym1-ML6u-ohzw3WvX51O03faMxeQk1apklGD2ENwJJMP1hFYSMc9oQ2496hNIaAY7K_0R8O070Wt9f132s5bLFoIJXyqrcVr5sMFqU6GIZrZXXYTfE5aT3jyoDaVejc1ns"
+        },
+        {
+          title: "AudioWave Session Player",
+          size: "768 x 1376",
+          url: "https://lh3.googleusercontent.com/aida/ADBb0ugZoLyVRTXIpsCMor48w1BJBUb9rtM2pQlv3GAlPvv8Cbdpun9Fx-5uEBL0tzBLvT9POOMWBIl5QjI8b0OQNQaVAXrRs2LFAV_9LhfYwATEQ6Np_lNaGEMDI0OgL_3s2VqtRvAQ8G-zX2Xju4lxNKncqO7uzUagAtfJGHGnpNL9Y67MOeNHl9IxrI9BT7PKHH1cc50dB9-dMEXvi3jm-bVjIqwX20H3Hx29sFIWDjCPCv1tYoyfsFuHMfeo"
+        },
+        {
+          title: "AudioWave Routine Planner",
+          size: "768 x 1376",
+          url: "https://lh3.googleusercontent.com/aida/ADBb0uiyiSBMW2IE3XMKL_485YaJFRtVpNpTTZz6KLubz_mGSD2CLmqhU7kAmzrnhZuJVuij99RHIPIfyU5XAFGDQ32REUHADYsWyhEtM4gQaUBPLYf1bsCo0VpthUa3CIAUk8SYNzv7M8DZ4u5KbjOFp6o_0qsA_miX-kTtDBMWFD6D29JuXYyD5CAKcF9_sEn119FDfFIQ5JMIBLTqRTMSfqkEMVVnP4iJp-gU61F63L5pZVCsist_9V5mX2c"
+        },
+        {
+          title: "AudioWave Progress Insights",
+          size: "768 x 1376",
+          url: "https://lh3.googleusercontent.com/aida/ADBb0uhITvuK6cLCE-WB3pEflKDQzpnNmdTr8UoYQ8F0CF6GrKHmote1HJM-Uz3g6GfzuU1Fidv2Lhsa6UyGPILspD57ow8GkTb1d98ffB-4UimY2vDoywJuTBejZfpngt5T_Pppd_9OEuKDkyF5l6WKigaXSXyYyzPjxKLVt5NsDBP8Lv2xPtnn1wFgZY0SPfLKqaE3L56Pabw3HP63QAk_NHnqJDJ4a_rRZQzJMqsj2b3BzydLrQNegko1xDyJ"
+        }
+      ];
+
+      const root = document.documentElement;
+      const label = document.querySelector("#scaleLabel");
+      let scale = 1;
+
+      function render() {
+        document.querySelector("#screens").innerHTML = screens.map((screen) => `
+          <article class="screen">
+            <div class="screen-header">
+              <div>
+                <div class="screen-title">${screen.title}</div>
+                <div class="screen-size">${screen.size}</div>
+              </div>
+              <a class="open-link" href="${screen.url}" target="_blank" rel="noreferrer">abrir imagem</a>
+            </div>
+            <div class="phone-wrap">
+              <div class="phone">
+                <img src="${screen.url}" alt="${screen.title}" loading="lazy" />
+              </div>
+            </div>
+          </article>
+        `).join("");
+      }
+
+      function setScale(nextScale) {
+        scale = Math.min(1.75, Math.max(0.55, nextScale));
+        root.style.setProperty("--scale", scale.toFixed(2));
+        label.textContent = `${Math.round(scale * 50)}%`;
+      }
+
+      document.querySelector("#zoomOut").addEventListener("click", () => setScale(scale - 0.15));
+      document.querySelector("#zoomIn").addEventListener("click", () => setScale(scale + 0.15));
+      render();
+      setScale(1);
+    </script>
+  </body>
+</html>
