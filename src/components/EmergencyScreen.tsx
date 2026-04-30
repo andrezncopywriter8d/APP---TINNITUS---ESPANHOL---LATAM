@@ -10,15 +10,15 @@ interface EmergencyScreenProps {
 }
 
 const reasons = [
-  { label: "Zumbido aumentou", Icon: Zap },
-  { label: "Estou ansioso", Icon: AlertTriangle },
-  { label: "Estou tentando dormir", Icon: Moon },
-  { label: "Preciso focar", Icon: Target },
-  { label: "Ambiente silencioso demais", Icon: Check }
+  { label: "El zumbido subió", Icon: Zap },
+  { label: "Estoy ansioso", Icon: AlertTriangle },
+  { label: "Estoy intentando dormir", Icon: Moon },
+  { label: "Necesito enfocarme", Icon: Target },
+  { label: "Ambiente demasiado silencioso", Icon: Check }
 ] as const;
 
 export function EmergencyScreen({ active, emergencyUses, openAudio }: EmergencyScreenProps) {
-  const [selected, setSelected] = useState("Zumbido aumentou");
+  const [selected, setSelected] = useState("El zumbido subió");
   const recommended = useMemo(() => audioById(emergencyRecommendations[selected]), [selected]);
 
   return (
@@ -26,11 +26,11 @@ export function EmergencyScreen({ active, emergencyUses, openAudio }: EmergencyS
       <header className="neuro-heading">
         <span className="protocol-eyebrow"><AlertTriangle size={14} /> Emergencia</span>
         <h1>Spike de zumbido?</h1>
-        <p>Escolha o estado atual. O app recomenda um audio curto, sem alarme.</p>
+        <p>Elige tu estado actual. La app recomienda un audio corto, sin alarma.</p>
       </header>
 
       <section className="emergency-flow">
-        <h2>O que esta acontecendo agora?</h2>
+        <h2>¿Qué está pasando ahora?</h2>
         <div className="state-grid">
           {reasons.map(({ label, Icon }) => (
             <button className={selected === label ? "selected" : ""} key={label} type="button" onClick={() => setSelected(label)}>
@@ -42,7 +42,7 @@ export function EmergencyScreen({ active, emergencyUses, openAudio }: EmergencyS
       </section>
 
       <article className="emergency-hero">
-        <small>Recomendacao</small>
+        <small>Recomendación</small>
         <strong>{recommended.name}</strong>
         <span>{recommended.duration} minutos · {recommended.bestMoment}</span>
         <p>{recommended.description}</p>
@@ -54,13 +54,13 @@ export function EmergencyScreen({ active, emergencyUses, openAudio }: EmergencyS
 
       <section className="protocol-routine-card">
         <div className="empty-state compact">
-          <strong>{emergencyUses.length ? `${emergencyUses.length} spikes registrados` : "Nenhum spike registrado ainda."}</strong>
-          <p>Depois da sessao, salve se o zumbido ficou mais controlavel.</p>
+          <strong>{emergencyUses.length ? `${emergencyUses.length} spikes registrados` : "Aún no hay spikes registrados."}</strong>
+          <p>Después de la sesión, guarda si el zumbido quedó más controlable.</p>
         </div>
-        {["Volume alto hoje", "Cafeina ou estimulante", "Sono ruim", "Estresse ou pressa", "Ambiente muito silencioso"].map((item) => (
+        {["Volumen alto hoy", "Cafeína o estimulante", "Mal sueño", "Estrés o prisa", "Ambiente muy silencioso"].map((item) => (
           <div className="protocol-routine-row" key={item}>
             <span><Check size={16} /></span>
-            <div><strong>{item}</strong><p>Observe se apareceu antes do spike.</p></div>
+            <div><strong>{item}</strong><p>Observa si apareció antes del spike.</p></div>
           </div>
         ))}
       </section>

@@ -12,7 +12,7 @@ interface PlayerScreenProps {
   readonly onComplete: (checkIn: CheckInInput, emergencyResult?: string) => void;
 }
 
-const quickTags = ["Zumbido mais baixo", "Igual", "Mais intenso", "Mais calmo", "Mais claro", "Dificil focar"];
+const quickTags = ["Zumbido más bajo", "Igual", "Más intenso", "Más calmado", "Más claro", "Difícil enfocarme"];
 
 export function PlayerScreen({ active, audio, source, onComplete }: PlayerScreenProps) {
   const [remaining, setRemaining] = useState(audio.duration * 60);
@@ -23,14 +23,14 @@ export function PlayerScreen({ active, audio, source, onComplete }: PlayerScreen
     tinnitusScore: 5,
     clarityScore: 5,
     calmScore: 5,
-    sleepScore: audio.category === "Sono" ? 5 : null,
+    sleepScore: audio.category === "Sueño" ? 5 : null,
     tags: [],
     note: ""
   });
   const intervalRef = useRef<number | null>(null);
   const total = audio.duration * 60;
   const progress = 1 - remaining / total;
-  const phase = progress < 0.33 ? "Preparacao" : progress < 0.66 ? "Sincronizacao" : "Silencio e Clareza";
+  const phase = progress < 0.33 ? "Preparación" : progress < 0.66 ? "Sincronización" : "Silencio y Claridad";
 
   useEffect(() => {
     setRemaining(audio.duration * 60);
@@ -41,7 +41,7 @@ export function PlayerScreen({ active, audio, source, onComplete }: PlayerScreen
       tinnitusScore: 5,
       clarityScore: 5,
       calmScore: 5,
-      sleepScore: audio.category === "Sono" ? 5 : isMorning() ? 5 : null,
+      sleepScore: audio.category === "Sueño" ? 5 : isMorning() ? 5 : null,
       tags: [],
       note: ""
     });
@@ -104,7 +104,7 @@ export function PlayerScreen({ active, audio, source, onComplete }: PlayerScreen
       <div className="neuro-orbit" />
       <header className="neuro-heading">
         <span className="protocol-eyebrow"><Waves size={14} /> Protocolo Auditivo</span>
-        <h1>{audio.category === "Principal" ? "Sessao Gamma" : audio.name}</h1>
+        <h1>{audio.category === "Principal" ? "Sesión Gamma" : audio.name}</h1>
         <p>{audio.name}, {audio.duration} minutos. {audio.description}</p>
       </header>
 
@@ -121,7 +121,7 @@ export function PlayerScreen({ active, audio, source, onComplete }: PlayerScreen
           <p>{phaseCopy(phase)}</p>
         </div>
 
-        <div className="waveform gamma-wave" aria-label="Waveform da Sessao Gamma">
+        <div className="waveform gamma-wave" aria-label="Waveform de la Sesión Gamma">
           {waveBars.map((height, index) => <span className={index / waveBars.length < progress ? "active" : ""} key={`${height}-${index}`} style={{ height: `${height}%` }} />)}
         </div>
 
@@ -138,7 +138,7 @@ export function PlayerScreen({ active, audio, source, onComplete }: PlayerScreen
 
         <button className="finish-link" type="button" onClick={finishSession}>
           <Check size={18} />
-          Finalizar e registrar check-in
+          Finalizar y registrar check-in
         </button>
       </article>
 
@@ -146,26 +146,26 @@ export function PlayerScreen({ active, audio, source, onComplete }: PlayerScreen
         <div className="protocol-modal-panel checkin-panel">
           <div className="protocol-modal-head">
             <div>
-              <h3>{emergencyStep ? "Resultado do spike" : "Check-in pos-sessao"}</h3>
-              <p>{emergencyStep ? "O zumbido ficou mais controlavel?" : "Registre sinais reais para alimentar seu progresso."}</p>
+              <h3>{emergencyStep ? "Resultado del spike" : "Check-in pos-sesión"}</h3>
+              <p>{emergencyStep ? "¿El zumbido quedó más controlable?" : "Registra señales reales para alimentar tu progreso."}</p>
             </div>
             <button className="protocol-close-btn" type="button" onClick={() => setCheckOpen(false)}><X size={18} /></button>
           </div>
           {emergencyStep ? (
             <div className="protocol-check-grid">
-              {["Sim", "Um pouco", "Igual", "Piorou"].map((item) => <button key={item} type="button" onClick={() => saveEmergency(item)}>{item}</button>)}
+              {["Sí", "Un poco", "Igual", "Empeoró"].map((item) => <button key={item} type="button" onClick={() => saveEmergency(item)}>{item}</button>)}
             </div>
           ) : (
             <>
-              <SliderRow label="Zumbido agora" left="silencioso" right="intenso" value={form.tinnitusScore} onChange={(value) => setForm((current) => ({ ...current, tinnitusScore: value }))} />
-              <SliderRow label="Clareza mental" left="confuso" right="muito claro" value={form.clarityScore} onChange={(value) => setForm((current) => ({ ...current, clarityScore: value }))} />
-              <SliderRow label="Calma" left="tenso" right="calmo" value={form.calmScore} onChange={(value) => setForm((current) => ({ ...current, calmScore: value }))} />
-              {form.sleepScore !== null ? <SliderRow label="Sono" left="ruim" right="otimo" value={form.sleepScore} onChange={(value) => setForm((current) => ({ ...current, sleepScore: value }))} /> : null}
+              <SliderRow label="Zumbido ahora" left="silencioso" right="intenso" value={form.tinnitusScore} onChange={(value) => setForm((current) => ({ ...current, tinnitusScore: value }))} />
+              <SliderRow label="Claridad mental" left="confuso" right="muy claro" value={form.clarityScore} onChange={(value) => setForm((current) => ({ ...current, clarityScore: value }))} />
+              <SliderRow label="Calma" left="tenso" right="calmado" value={form.calmScore} onChange={(value) => setForm((current) => ({ ...current, calmScore: value }))} />
+              {form.sleepScore !== null ? <SliderRow label="Sueño" left="malo" right="óptimo" value={form.sleepScore} onChange={(value) => setForm((current) => ({ ...current, sleepScore: value }))} /> : null}
               <div className="tag-grid">
                 {quickTags.map((tag) => <button className={form.tags.includes(tag) ? "selected" : ""} key={tag} type="button" onClick={() => toggleTag(tag)}>{tag}</button>)}
               </div>
-              <textarea value={form.note} onChange={(event) => setForm((current) => ({ ...current, note: event.target.value }))} placeholder="Alguma observacao rapida?" />
-              <button className="protocol-primary full" type="button" onClick={saveCheckIn}>Salvar check-in</button>
+              <textarea value={form.note} onChange={(event) => setForm((current) => ({ ...current, note: event.target.value }))} placeholder="¿Alguna observación rápida?" />
+              <button className="protocol-primary full" type="button" onClick={saveCheckIn}>Guardar check-in</button>
             </>
           )}
         </div>
@@ -175,9 +175,9 @@ export function PlayerScreen({ active, audio, source, onComplete }: PlayerScreen
 }
 
 function phaseCopy(phase: string) {
-  if (phase === "Preparacao") return "Ajuste o volume, respire e deixe o zumbido sair do centro da atencao.";
-  if (phase === "Sincronizacao") return "Mantenha a escuta constante. A meta e regular resposta, nao mascarar tudo.";
-  return "Observe silencio, clareza auditiva e estado corporal antes do check-in.";
+  if (phase === "Preparación") return "Ajusta el volumen, respira y deja que el zumbido salga del centro de atención.";
+  if (phase === "Sincronización") return "Mantén la escucha constante. La meta es regular la respuesta, no enmascararlo todo.";
+  return "Observa silencio, claridad auditiva y estado corporal antes del check-in.";
 }
 
 function isMorning() {

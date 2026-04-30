@@ -181,16 +181,16 @@ export function audioById(id: string): ProtocolAudio {
 }
 
 export function generateProfileName(profile: Omit<UserProfile, "profileName">): string {
-  if (profile.bothersMost.includes("Antes de dormir") || profile.mainImpact === "Sono") {
-    return "Zumbido Noturno";
+  if (profile.bothersMost.includes("Antes de dormir") || profile.mainImpact === "Sueño" || profile.mainImpact === "Sono") {
+    return "Zumbido Nocturno";
   }
-  if (profile.mainGoal === "Controlar spikes" || profile.mainImpact === "Ansiedade") {
-    return "Spike e Calma";
+  if (profile.mainGoal === "Controlar spikes" || profile.mainImpact === "Ansiedad" || profile.mainImpact === "Ansiedade") {
+    return "Spike y Calma";
   }
-  if (profile.mainImpact === "Foco" || profile.mainGoal === "Ter mais clareza") {
-    return "Foco e Clareza";
+  if (profile.mainImpact === "Enfoque" || profile.mainImpact === "Foco" || profile.mainGoal === "Tener más claridad" || profile.mainGoal === "Ter mais clareza") {
+    return "Enfoque y Claridad";
   }
-  if (profile.bothersMost.includes("O dia inteiro")) {
+  if (profile.bothersMost.includes("Todo el día") || profile.bothersMost.includes("O dia inteiro")) {
     return "Zumbido Constante";
   }
   return "Protocolo Moderado";
@@ -238,7 +238,7 @@ export function metricsFromState(state: OndaTeslaState) {
   const last7 = new Set(lastNDays(7));
   const weeklySessions = completed.filter((session) => last7.has(session.date));
   const usageEntries = Object.entries(state.audioUsage).sort((a, b) => b[1] - a[1]);
-  const mostUsed = usageEntries[0] ? audioById(usageEntries[0][0]).name : "Nenhum ainda";
+  const mostUsed = usageEntries[0] ? audioById(usageEntries[0][0]).name : "Ninguno aún";
   return {
     totalSessions: completed.length,
     totalMinutes: completed.reduce((sum, session) => sum + session.duration, 0),

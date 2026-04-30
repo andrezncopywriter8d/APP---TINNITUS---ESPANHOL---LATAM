@@ -10,24 +10,24 @@ interface OnboardingFlowProps {
 const questions = [
   {
     key: "tinnitusType",
-    title: "Como seu zumbido aparece?",
-    options: ["Apito agudo", "Chiado constante", "Ruido eletrico", "Pulsacao", "Pressao no ouvido", "Outro"]
+    title: "¿Cómo aparece tu zumbido?",
+    options: ["Pitido agudo", "Ruido constante", "Ruido eléctrico", "Pulsación", "Presión en el oído", "Otro"]
   },
   {
     key: "bothersMost",
-    title: "Quando incomoda mais?",
-    options: ["Ao acordar", "Durante o dia", "Em conversas", "No silencio", "Antes de dormir", "O dia inteiro"],
+    title: "¿Cuándo molesta más?",
+    options: ["Al despertar", "Durante el día", "En conversaciones", "En silencio", "Antes de dormir", "Todo el día"],
     multi: true
   },
   {
     key: "mainImpact",
-    title: "Qual impacto pesa mais?",
-    options: ["Sono", "Foco", "Conversas", "Clareza mental", "Ansiedade", "Vida social"]
+    title: "¿Qué impacto pesa más?",
+    options: ["Sueño", "Enfoque", "Conversaciones", "Claridad mental", "Ansiedad", "Vida social"]
   },
   {
     key: "mainGoal",
-    title: "Qual meta principal?",
-    options: ["Reduzir volume do zumbido", "Dormir melhor", "Ter mais clareza", "Ouvir conversas melhor", "Criar rotina diaria", "Controlar spikes"]
+    title: "¿Cuál es tu meta principal?",
+    options: ["Reducir volumen del zumbido", "Dormir mejor", "Tener más claridad", "Escuchar conversaciones mejor", "Crear rutina diaria", "Controlar spikes"]
   }
 ] as const;
 
@@ -37,8 +37,8 @@ export function OnboardingFlow({ onComplete, onSkip }: OnboardingFlowProps) {
   const [answers, setAnswers] = useState<Record<string, string | readonly string[]>>({
     tinnitusType: "Apito agudo",
     bothersMost: ["Antes de dormir"],
-    mainImpact: "Sono",
-    mainGoal: "Dormir melhor"
+    mainImpact: "Sueño",
+    mainGoal: "Dormir mejor"
   });
 
   const isIntensity = step === 1;
@@ -48,8 +48,8 @@ export function OnboardingFlow({ onComplete, onSkip }: OnboardingFlowProps) {
       tinnitusType: String(answers.tinnitusType ?? "Outro"),
       intensity,
       bothersMost: Array.isArray(answers.bothersMost) ? answers.bothersMost : [String(answers.bothersMost ?? "Durante o dia")],
-      mainImpact: String(answers.mainImpact ?? "Clareza mental"),
-      mainGoal: String(answers.mainGoal ?? "Criar rotina diaria")
+      mainImpact: String(answers.mainImpact ?? "Claridad mental"),
+      mainGoal: String(answers.mainGoal ?? "Crear rutina diaria")
     };
     return { ...draft, profileName: generateProfileName(draft) };
   }, [answers, intensity]);
@@ -79,20 +79,20 @@ export function OnboardingFlow({ onComplete, onSkip }: OnboardingFlowProps) {
       <div className="onboarding-panel">
         <div className="onboarding-top">
           <span>{step + 1}/{totalSteps}</span>
-          <button type="button" onClick={onSkip}>Pular</button>
+          <button type="button" onClick={onSkip}>Saltar</button>
         </div>
         <div className="onboarding-progress"><span style={{ width: `${((step + 1) / totalSteps) * 100}%` }} /></div>
 
         {step === 0 ? (
           <section className="onboarding-question">
-            <span className="protocol-eyebrow">Diagnostico inicial</span>
+            <span className="protocol-eyebrow">Diagnóstico inicial</span>
             <h1>{questions[0].title}</h1>
             <AnswerList question={questions[0]} answers={answers} choose={choose} />
           </section>
         ) : isIntensity ? (
           <section className="onboarding-question">
             <span className="protocol-eyebrow">Intensidade</span>
-            <h1>De 0 a 10, quanto incomoda hoje?</h1>
+            <h1>Del 0 al 10, ¿cuánto molesta hoy?</h1>
             <div className="scale-card">
               <strong>{intensity}</strong>
               <input min="0" max="10" value={intensity} type="range" onChange={(event) => setIntensity(Number(event.target.value))} />
@@ -107,7 +107,7 @@ export function OnboardingFlow({ onComplete, onSkip }: OnboardingFlowProps) {
           </section>
         ) : (
           <section className="onboarding-question">
-            <span className="protocol-eyebrow"><ShieldCheck size={14} /> Perfil gerado</span>
+            <span className="protocol-eyebrow"><ShieldCheck size={14} /> Perfil generado</span>
             <h1>{profileDraft.profileName}</h1>
             <div className="profile-result">
               <p>Zumbido: {profileDraft.tinnitusType}</p>
@@ -115,13 +115,13 @@ export function OnboardingFlow({ onComplete, onSkip }: OnboardingFlowProps) {
               <p>Meta: {profileDraft.mainGoal}</p>
             </div>
             <div className="trust-note">
-              Use volume confortavel. O app nao substitui orientacao medica. Procure ajuda em perda auditiva subita, dor forte, tontura intensa ou zumbido pulsatil novo.
+              Usa un volumen cómodo. La app no sustituye orientación médica. Busca ayuda ante pérdida auditiva súbita, dolor fuerte, mareo intenso o zumbido pulsátil nuevo.
             </div>
           </section>
         )}
 
         <button className="protocol-primary onboarding-cta" type="button" onClick={next}>
-          {step === totalSteps - 1 ? "Entrar no meu protocolo" : "Continuar"}
+          {step === totalSteps - 1 ? "Entrar a mi protocolo" : "Continuar"}
           {step === totalSteps - 1 ? <Check size={18} /> : <ArrowRight size={18} />}
         </button>
       </div>

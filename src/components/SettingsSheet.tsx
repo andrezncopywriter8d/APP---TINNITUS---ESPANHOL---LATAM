@@ -24,7 +24,7 @@ export function SettingsSheet({ onClose, onResetAll, open, setState, state }: Se
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = `onda-tesla-progresso-${todayKey()}.json`;
+    link.download = `onda-tesla-progreso-${todayKey()}.json`;
     link.click();
     URL.revokeObjectURL(url);
   }
@@ -35,7 +35,7 @@ export function SettingsSheet({ onClose, onResetAll, open, setState, state }: Se
   }
 
   function resetProgress() {
-    if (window.confirm("Resetar progresso local? Isso apaga sessoes, check-ins e emergencias deste navegador.")) {
+    if (window.confirm("¿Restablecer progreso local? Esto borra sesiones, check-ins y emergencias de este navegador.")) {
       setState((current) => ({
         ...current,
         sessions: [],
@@ -49,7 +49,7 @@ export function SettingsSheet({ onClose, onResetAll, open, setState, state }: Se
   }
 
   function clearAll() {
-    if (window.confirm("Limpar todos os dados locais da Onda Tesla neste navegador?")) onResetAll();
+    if (window.confirm("¿Borrar todos los datos locales de Onda Tesla en este navegador?")) onResetAll();
   }
 
   return (
@@ -58,53 +58,53 @@ export function SettingsSheet({ onClose, onResetAll, open, setState, state }: Se
         <div className="protocol-modal-head">
           <div>
             <h3>Ajustes</h3>
-            <p>Perfil auditivo, lembretes, acessibilidade e dados locais.</p>
+            <p>Perfil auditivo, recordatorios, accesibilidad y datos locales.</p>
           </div>
           <button className="protocol-close-btn" type="button" onClick={onClose}><X size={18} /></button>
         </div>
 
         <section className="settings-section">
           <h4>Perfil auditivo</h4>
-          <p>{state.userProfile?.profileName ?? "Perfil ainda nao definido"}</p>
+          <p>{state.userProfile?.profileName ?? "Perfil aún no definido"}</p>
           {state.userProfile ? <small>{generateProfileName(state.userProfile)} · intensidade {state.userProfile.intensity}/10</small> : null}
-          <button className="protocol-secondary full" type="button" onClick={resetOnboarding}>Editar diagnostico</button>
+          <button className="protocol-secondary full" type="button" onClick={resetOnboarding}>Editar diagnóstico</button>
         </section>
 
         <section className="settings-section">
           <h4>Protocolo</h4>
-          <label>Inicio da jornada<input type="date" value={state.journeyStartDate} onChange={(event) => setState((current) => ({ ...current, journeyStartDate: event.target.value || todayKey() }))} /></label>
+          <label>Inicio de la jornada<input type="date" value={state.journeyStartDate} onChange={(event) => setState((current) => ({ ...current, journeyStartDate: event.target.value || todayKey() }))} /></label>
           <label>Horario preferido<input type="time" value={state.reminderSettings.dailySessionTime} onChange={(event) => updateReminder("dailySessionTime", event.target.value)} /></label>
         </section>
 
         <section className="settings-section">
-          <h4>Lembretes</h4>
-          <Toggle label="Lembrete da sessao principal" checked={state.reminderSettings.dailySessionEnabled} onChange={(value) => updateReminder("dailySessionEnabled", value)} />
-          <label>Horario da sessao<input type="time" value={state.reminderSettings.dailySessionTime} onChange={(event) => updateReminder("dailySessionTime", event.target.value)} /></label>
-          <Toggle label="Lembrete noturno" checked={state.reminderSettings.nightReminderEnabled} onChange={(value) => updateReminder("nightReminderEnabled", value)} />
-          <label>Horario noturno<input type="time" value={state.reminderSettings.nightReminderTime} onChange={(event) => updateReminder("nightReminderTime", event.target.value)} /></label>
-          <Toggle label="Lembrete se eu perder um dia" checked={state.reminderSettings.missedDayReminderEnabled} onChange={(value) => updateReminder("missedDayReminderEnabled", value)} />
-          <small>Lembretes reais dependem das permissoes do navegador.</small>
+          <h4>Recordatorios</h4>
+          <Toggle label="Recordatorio de la sesión principal" checked={state.reminderSettings.dailySessionEnabled} onChange={(value) => updateReminder("dailySessionEnabled", value)} />
+          <label>Horario de la sesión<input type="time" value={state.reminderSettings.dailySessionTime} onChange={(event) => updateReminder("dailySessionTime", event.target.value)} /></label>
+          <Toggle label="Recordatorio nocturno" checked={state.reminderSettings.nightReminderEnabled} onChange={(value) => updateReminder("nightReminderEnabled", value)} />
+          <label>Horario nocturno<input type="time" value={state.reminderSettings.nightReminderTime} onChange={(event) => updateReminder("nightReminderTime", event.target.value)} /></label>
+          <Toggle label="Recordatorio si pierdo un día" checked={state.reminderSettings.missedDayReminderEnabled} onChange={(value) => updateReminder("missedDayReminderEnabled", value)} />
+          <small>Los recordatorios reales dependen de los permisos del navegador.</small>
         </section>
 
         <section className="settings-section">
-          <h4>Acessibilidade</h4>
-          <Toggle label="Texto maior" checked={state.accessibilitySettings.largerText} onChange={(value) => updateAccessibility("largerText", value)} />
+          <h4>Accesibilidad</h4>
+          <Toggle label="Texto más grande" checked={state.accessibilitySettings.largerText} onChange={(value) => updateAccessibility("largerText", value)} />
           <Toggle label="Alto contraste" checked={state.accessibilitySettings.highContrast} onChange={(value) => updateAccessibility("highContrast", value)} />
-          <Toggle label="Reduzir movimento" checked={state.accessibilitySettings.reduceMotion} onChange={(value) => updateAccessibility("reduceMotion", value)} />
+          <Toggle label="Reducir movimiento" checked={state.accessibilitySettings.reduceMotion} onChange={(value) => updateAccessibility("reduceMotion", value)} />
         </section>
 
         <section className="settings-section">
-          <h4>Dados</h4>
+          <h4>Datos</h4>
           <button className="protocol-secondary full" type="button" onClick={exportData}><Download size={17} /> Exportar JSON</button>
-          <button className="protocol-secondary full danger" type="button" onClick={resetProgress}><Trash2 size={17} /> Resetar progresso</button>
-          <button className="protocol-secondary full danger" type="button" onClick={clearAll}>Limpar tudo</button>
+          <button className="protocol-secondary full danger" type="button" onClick={resetProgress}><Trash2 size={17} /> Restablecer progreso</button>
+          <button className="protocol-secondary full danger" type="button" onClick={clearAll}>Borrar todo</button>
         </section>
 
         <section className="settings-section trust-card">
           <ShieldCheck size={18} />
           <div>
-            <strong>Uso responsavel</strong>
-            <p>Este app nao substitui orientacao medica. Use volume confortavel e pare se houver desconforto. Procure ajuda para perda auditiva subita, dor forte, tontura intensa, zumbido pulsatil ou sintomas neurologicos novos.</p>
+            <strong>Uso responsable</strong>
+            <p>Esta app no sustituye orientación médica. Usa un volumen cómodo y detente si hay molestia. Busca ayuda ante pérdida auditiva súbita, dolor fuerte, mareo intenso, zumbido pulsátil o síntomas neurológicos nuevos.</p>
           </div>
         </section>
       </div>

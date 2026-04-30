@@ -37,7 +37,7 @@ export function HomeScreen({ active, state, setState, openAudio, openScreen, ope
   return (
     <section className={`screen home-protocol ${active ? "active" : ""}`}>
       <header className="protocol-topbar">
-        <button className="protocol-square-btn" type="button" aria-label="Abrir menu" onClick={() => openScreen("guide")}>
+        <button className="protocol-square-btn" type="button" aria-label="Abrir guía" onClick={() => openScreen("guide")}>
           <Menu size={20} />
         </button>
         <div className="protocol-brand">
@@ -50,21 +50,21 @@ export function HomeScreen({ active, state, setState, openAudio, openScreen, ope
       </header>
 
       <section className="protocol-hero">
-        <div className="protocol-eyebrow"><Headphones size={14} /> Hoje</div>
-        <h1>Seu protocolo de hoje</h1>
-        <p>Complete a sessao principal de 9 minutos e registre como o zumbido responde.</p>
+        <div className="protocol-eyebrow"><Headphones size={14} /> Hoy</div>
+        <h1>Tu protocolo de hoy</h1>
+        <p>Completa la sesión principal de 9 minutos y registra cómo responde tu zumbido.</p>
         {state.userProfile ? <span className="profile-chip">Perfil: {state.userProfile.profileName}</span> : null}
       </section>
 
       <section className="protocol-session-card">
         <div className="journey-row">
-          <span>Dia {journeyDay} da jornada</span>
-          <strong>Proximo marco: Dia {nextMilestone.day}</strong>
+          <span>Día {journeyDay} de la jornada</span>
+          <strong>Próximo hito: Día {nextMilestone.day}</strong>
         </div>
         <div className="protocol-session-top">
           <div>
             <h2>Onda Tesla Principal</h2>
-            <p>{mainDone ? "Sessao principal concluida hoje." : "Sessao Gamma diaria para clareza auditiva e silencio mental."}</p>
+            <p>{mainDone ? "Sesión principal completada hoy." : "Sesión Gamma diaria para claridad auditiva y silencio mental."}</p>
           </div>
           <div className="protocol-ring">
             <svg viewBox="0 0 120 120">
@@ -73,21 +73,21 @@ export function HomeScreen({ active, state, setState, openAudio, openScreen, ope
             </svg>
             <div className="protocol-ring-center">
               <strong>{mainDone ? "100%" : "0%"}</strong>
-              <small>Hoje</small>
+              <small>Hoy</small>
             </div>
           </div>
         </div>
         <button className="protocol-primary wide-action" type="button" onClick={() => openAudio(audioLibrary[0], { kind: "main" })}>
-          {mainDone ? "Repetir protocolo de 9 min" : "Iniciar sessao de 9 min"}
+          {mainDone ? "Repetir protocolo de 9 min" : "Iniciar sesión de 9 min"}
         </button>
         <div className="protocol-status-strip">
           <span className="pulse-dot" />
-          <span>{routineDone} de {enabledRoutine.length} etapas concluidas. {mainDone ? "Rotina principal em dia." : "Sessao principal pendente."}</span>
+          <span>{routineDone} de {enabledRoutine.length} etapas completadas. {mainDone ? "Rutina principal al día." : "Sesión principal pendiente."}</span>
         </div>
-        {reminderDue ? <div className="protocol-status-strip subtle"><Clock size={16} /> Sua sessao de 9 minutos ainda esta pendente.</div> : null}
+        {reminderDue ? <div className="protocol-status-strip subtle"><Clock size={16} /> Tu sesión de 9 minutos sigue pendiente.</div> : null}
       </section>
 
-      <ProtocolSection title="Rotina Auditiva" action="Ver guia" onAction={() => openScreen("guide")}>
+      <ProtocolSection title="Rutina Auditiva" action="Ver guía" onAction={() => openScreen("guide")}>
         <div className="routine-compact">
           {routineTemplates.map((item) => {
             const audio = audioById(item.audioId);
@@ -95,38 +95,38 @@ export function HomeScreen({ active, state, setState, openAudio, openScreen, ope
             const done = doneToday.includes(item.id) || (item.id === "principal" && mainDone);
             return (
               <div className={`routine-row-mvp ${done ? "done" : ""}`} key={item.id}>
-                <button className="routine-check-btn" type="button" onClick={() => toggleRoutine(item.id)} aria-label={enabled ? "Desativar rotina" : "Ativar rotina"}>
+                <button className="routine-check-btn" type="button" onClick={() => toggleRoutine(item.id)} aria-label={enabled ? "Desactivar rutina" : "Activar rutina"}>
                   {enabled ? <Check size={16} /> : null}
                 </button>
                 <div>
                   <strong>{item.label}</strong>
                   <p>{audio.name} · {audio.duration} min · {item.goal}</p>
                 </div>
-                <button type="button" onClick={() => openAudio(audio, { kind: "routine", routineId: item.id })}>{done ? "Refazer" : "Iniciar"}</button>
+                <button type="button" onClick={() => openAudio(audio, { kind: "routine", routineId: item.id })}>{done ? "Repetir" : "Iniciar"}</button>
               </div>
             );
           })}
         </div>
       </ProtocolSection>
 
-      <ProtocolSection title="Acoes rapidas" action="Emergencia" onAction={() => openScreen("emergency")}>
+      <ProtocolSection title="Acciones rápidas" action="Emergencia" onAction={() => openScreen("emergency")}>
         <div className="protocol-quick-list">
-          <QuickRow icon={<Zap size={18} />} title="Spike agora" subtitle="Fluxo calmo para zumbido alto" time="3 min" onClick={() => openScreen("emergency")} />
-          <QuickRow icon={<Volume2 size={18} />} title="Sono noturno" subtitle="Preparar noite mais calma" time="8 min" onClick={() => openAudio(audioById("paz-noturna"), { kind: "library" })} />
+          <QuickRow icon={<Zap size={18} />} title="Spike ahora" subtitle="Flujo calmado para zumbido alto" time="3 min" onClick={() => openScreen("emergency")} />
+          <QuickRow icon={<Volume2 size={18} />} title="Sueño nocturno" subtitle="Preparar una noche más tranquila" time="8 min" onClick={() => openAudio(audioById("paz-noturna"), { kind: "library" })} />
         </div>
       </ProtocolSection>
 
-      <ProtocolSection title="Sinais reais">
+      <ProtocolSection title="Señales reales">
         <div className="signal-strip">
-          <Signal label="Sessoes" value={String(metrics.totalSessions)} />
+          <Signal label="Sesiones" value={String(metrics.totalSessions)} />
           <Signal label="Minutos" value={String(metrics.totalMinutes)} />
-          <Signal label="Streak" value={`${getCurrentStreak(state)}d`} />
+          <Signal label="Racha" value={`${getCurrentStreak(state)}d`} />
         </div>
       </ProtocolSection>
 
       <section className="trust-card">
         <ShieldCheck size={18} />
-        <p>Use volume confortavel. O app nao substitui orientacao medica.</p>
+        <p>Usa un volumen cómodo. La app no sustituye orientación médica.</p>
       </section>
     </section>
   );

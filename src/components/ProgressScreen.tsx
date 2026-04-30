@@ -17,23 +17,23 @@ export function ProgressScreen({ active, state }: ProgressScreenProps) {
   return (
     <section className={`screen neuro-screen ${active ? "active" : ""}`}>
       <header className="neuro-heading">
-        <span className="protocol-eyebrow"><Activity size={14} /> Progresso</span>
-        <h1>Progresso de 90 dias</h1>
-        <p>Numeros reais do seu protocolo local. Sem dados falsos.</p>
+        <span className="protocol-eyebrow"><Activity size={14} /> Progreso</span>
+        <h1>Progreso de 90 días</h1>
+        <p>Números reales de tu protocolo local. Sin datos falsos.</p>
       </header>
 
       {!hasData ? (
         <div className="empty-state">
-          <strong>Complete sua primeira sessao para iniciar seu historico.</strong>
-          <p>Depois do check-in, zumbido, clareza, calma e sono aparecem aqui.</p>
+          <strong>Completa tu primera sesión para iniciar tu historial.</strong>
+          <p>Después del check-in, zumbido, claridad, calma y sueño aparecen aquí.</p>
         </div>
       ) : null}
 
       <div className="progress-hero neuro-progress-main">
         <div>
-          <span className="kicker">Dia {journeyDay}</span>
-          <h2>{metrics.weeklyConsistency}/7 dias</h2>
-          <p>{next ? `Proximo marco: Dia ${next.day} - ${next.title}` : "Jornada completa registrada."}</p>
+          <span className="kicker">Día {journeyDay}</span>
+          <h2>{metrics.weeklyConsistency}/7 días</h2>
+          <p>{next ? `Próximo hito: Día ${next.day} - ${next.title}` : "Jornada completa registrada."}</p>
         </div>
         <div className="progress-ring">
           <strong>{Math.round((metrics.weeklyConsistency / 7) * 100)}%</strong>
@@ -43,12 +43,12 @@ export function ProgressScreen({ active, state }: ProgressScreenProps) {
       <div className="metric-grid compact-metrics">
         {[
           { label: "zumbido medio", value: fmt(metrics.averageTinnitusScore), detail: "escala 0-10", Icon: Volume2 },
-          { label: "clareza", value: fmt(metrics.averageClarityScore), detail: "media dos check-ins", Icon: Brain },
-          { label: "sono", value: fmt(metrics.averageSleepScore), detail: "quando registrado", Icon: Moon },
-          { label: "calma", value: fmt(metrics.averageCalmScore), detail: "pos-sessao", Icon: Activity },
-          { label: "sessoes", value: String(metrics.totalSessions), detail: "concluidas", Icon: RadioTower },
+          { label: "claridad", value: fmt(metrics.averageClarityScore), detail: "promedio de check-ins", Icon: Brain },
+          { label: "sueño", value: fmt(metrics.averageSleepScore), detail: "cuando se registra", Icon: Moon },
+          { label: "calma", value: fmt(metrics.averageCalmScore), detail: "pos-sesión", Icon: Activity },
+          { label: "sesiones", value: String(metrics.totalSessions), detail: "completadas", Icon: RadioTower },
           { label: "minutos", value: String(metrics.totalMinutes), detail: "total", Icon: Clock },
-          { label: "dias seguidos", value: String(metrics.currentStreak), detail: "streak atual", Icon: CalendarCheck },
+          { label: "días seguidos", value: String(metrics.currentStreak), detail: "racha actual", Icon: CalendarCheck },
           { label: "spikes", value: String(metrics.emergencyUses), detail: "emergencias", Icon: Sparkles }
         ].map(({ label, value, detail, Icon }) => (
           <article className="metric-card large" key={label}>
@@ -59,24 +59,24 @@ export function ProgressScreen({ active, state }: ProgressScreenProps) {
       </div>
 
       <section className="timeline-90">
-        <h2>Jornada 90 dias</h2>
-        <p>{next ? `Proximo marco: Dia ${next.day} - ${next.title}` : "Todos os marcos principais desbloqueados."}</p>
+        <h2>Jornada de 90 días</h2>
+        <p>{next ? `Próximo hito: Día ${next.day} - ${next.title}` : "Todos los hitos principales están desbloqueados."}</p>
         <div>
           {milestones.map((item) => (
             <span className={journeyDay >= item.day ? "done" : item.day === next?.day ? "active" : "locked"} key={item.day}>
-              Dia {item.day}
+              Día {item.day}
             </span>
           ))}
         </div>
       </section>
 
-      <Trend title="Zumbido 7 dias" data={trend.tinnitus} />
-      <Trend title="Clareza 7 dias" data={trend.clarity} />
-      <Trend title="Minutos 7 dias" data={trend.minutes} />
+      <Trend title="Zumbido 7 días" data={trend.tinnitus} />
+      <Trend title="Claridad 7 días" data={trend.clarity} />
+      <Trend title="Minutos 7 días" data={trend.minutes} />
       <section className="protocol-routine-card">
         <div className="protocol-routine-row">
           <span><CheckIcon /></span>
-          <div><strong>Audio mais usado</strong><p>{metrics.mostUsedAudio}</p></div>
+          <div><strong>Audio más usado</strong><p>{metrics.mostUsedAudio}</p></div>
         </div>
       </section>
     </section>
