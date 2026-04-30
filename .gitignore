@@ -5,3 +5,10 @@ dist/
 preview-current-*.png
 
 vinciule-meu-projeto-mcp-do-stitch/
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
